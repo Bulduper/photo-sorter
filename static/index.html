@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11151a">
+  <title>Photo Sorter</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">▦</span><span>photo<span class="brand-light">sorter</span></span></div>
+      <div class="topbar-right">
+        <div class="mode-switch" role="group" aria-label="View mode">
+          <button id="focus-mode" class="mode active" type="button" title="Single photo view">▣ <span>Focus</span></button>
+          <button id="grid-mode" class="mode" type="button" title="Scrollable photo grid">▦ <span>Grid</span></button>
+        </div>
+        <button id="fullscreen" class="icon-button" type="button" title="Toggle browser fullscreen" aria-label="Toggle fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-scroll">
+          <div class="sidebar-section folder-section">
+            <div class="eyebrow">YOUR WORKSPACE</div>
+            <div id="folder-label" class="folder-name">No folder open</div>
+            <div id="folder-path" class="folder-path">Open a local folder to begin.</div>
+            <form id="folder-form" class="folder-form">
+              <label class="sr-only" for="folder-input">Folder path</label>
+              <input id="folder-input" type="text" placeholder="/path/to/photos" autocomplete="off" spellcheck="false" required>
+              <button type="submit" class="folder-open">Open folder <span>↗</span></button>
+            </form>
+          </div>
+
+          <div class="sidebar-section category-section">
+            <div class="section-heading"><span class="eyebrow">CATEGORIES</span><span id="category-count" class="count-badge">0</span></div>
+            <p class="filter-hint">Select one to filter photos</p>
+            <div id="category-list" class="category-list"></div>
+            <form id="add-form" class="add-form">
+              <label class="sr-only" for="add-input">New category name</label>
+              <input id="add-input" type="text" maxlength="60" placeholder="New category..." autocomplete="off">
+              <button type="submit" title="Add category" aria-label="Add category">+</button>
+            </form>
+            <button id="import-button" class="import-button" type="button">↓ <span>Import category files</span></button>
+            <input id="import-input" type="file" accept=".txt,text/plain" multiple hidden>
+          </div>
+        </div>
+        <div class="sidebar-footer"><span class="save-dot"></span><span>Changes saved as .txt files<br>in your photo folder</span></div>
+      </aside>
+
+      <main class="main">
+        <div id="welcome" class="welcome">
+          <div class="welcome-art"><div class="art-frame frame-one"></div><div class="art-frame frame-two"></div><div class="art-frame frame-three">✦</div></div>
+          <span class="welcome-kicker">A LITTLE ORDER FOR YOUR PHOTOS</span>
+          <h1>See the whole picture.<br><em>Sort the details.</em></h1>
+          <p>Open a folder of photos, create your categories, and tag away. Everything stays on your computer.</p>
+          <label for="folder-input" class="welcome-hint">Start by entering a folder path on the left <span>↖</span></label>
+        </div>
+
+        <div id="content" class="content hidden">
+          <div class="content-header">
+            <div><div class="eyebrow">PHOTO COLLECTION</div><h1 id="collection-title">Photos</h1><p id="collection-subtitle"></p></div>
+            <div id="position" class="position"></div>
+          </div>
+          <div id="focus-view" class="focus-view">
+            <div class="photo-stage">
+              <button id="previous" class="nav-button nav-prev" aria-label="Previous photo" title="Previous photo (←)">‹</button>
+              <img id="focus-image" alt="">
+              <button id="next" class="nav-button nav-next" aria-label="Next photo" title="Next photo (→)">›</button>
+              <div id="image-counter" class="image-counter"></div>
+            </div>
+            <div class="photo-details">
+              <div class="photo-meta"><div class="eyebrow">CURRENT PHOTO</div><h2 id="photo-name"></h2><p id="tag-summary"></p></div>
+              <div class="tag-area"><span class="eyebrow">ADD TO CATEGORIES</span><div id="focus-tags" class="tag-list"></div></div>
+            </div>
+          </div>
+          <div id="grid-view" class="grid-view hidden"><div id="grid" class="grid"></div></div>
+          <div id="empty-photos" class="empty-photos hidden"><div class="empty-icon">▧</div><h2 id="empty-title">No photos here yet</h2><p id="empty-description">Add JPG, PNG, WEBP, GIF, BMP or AVIF images to this folder, then open it again.</p></div>
+        </div>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+</body>
+</html>
